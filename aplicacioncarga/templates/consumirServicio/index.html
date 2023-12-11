@@ -1,0 +1,6 @@
+<h1>Ejecución de Servicio</h1>
+
+<form method="POST" action="{% url 'consumirServicio' %}">
+  {% csrf_token %} {{form.as_p}}
+  <button>Save</button>
+</form>
