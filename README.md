@@ -1,5 +1,6 @@
 # pruebacarga_Externado
-Instalar python
+
+* Instalar python
 
 * Instalar entorno vitrual: pip install virtualenv
   
