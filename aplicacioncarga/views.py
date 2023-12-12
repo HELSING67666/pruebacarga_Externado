@@ -10,7 +10,7 @@ import threading
 import os
 
 urls_parametros = [{
-        'url': 'https://serviciosdigitalesdev.uexternado.edu.co/estudianteservicios/webresources/servicios/getMateriasProp',
+        'url': '',
         'params': {
             'objid': '0720938'
         }
@@ -18,9 +18,6 @@ urls_parametros = [{
 ]
 
 num_hilos_simultaneos = 10
-# Create your views here.
-def index(request):
-    return render(request, 'index.html')
 
 def consumirServicio(request):
     if request.method == 'GET':
@@ -28,10 +25,11 @@ def consumirServicio(request):
             'form': ConsumirServicioForm()
         })
     else:
-        print(f"URL: {urls_parametros}")
-        print(f"Cantidad de hilos: {num_hilos_simultaneos}")
+        cantidadHilos= request.POST['cantidadHilos']
+        urlServicio= request.POST['urlServicio']
+        urls_parametros[0]['url']=urlServicio
         
-        ejecutar_concurrente(num_hilos_simultaneos )
+        ejecutar_concurrente(int(cantidadHilos) )
         return redirect('resultadoServicio')
 
 def resultadoServicio(request):
@@ -56,7 +54,7 @@ def hacer_solicitud(url, params, numero_peticion, resultados, lock):
                     sheet.append(resultado)
             
             
-                wb.save("reporte_solicitudes.xlsx")
+                wb.save(ruta)
 
     except urllib.error.URLError as e:
         estado = f"Error al hacer la solicitud {numero_peticion}: {e.reason}"
